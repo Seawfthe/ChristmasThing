@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Christmas Thing</title>
+    <meta name="description" content="Register, scan in, and (maybe) win the lucky draw at The Christmas Thing." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+  </head>
+  <body data-page="home">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z" fill="currentColor" opacity=".9" />
+            <circle cx="12" cy="12" r="1.6" fill="#0a1511" />
+          </svg>
+          <span class="brand-text">
+            <strong data-event="name">The Christmas Thing</strong>
+            <em data-event="date">19 December 2026</em>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="register.html">Register</a>
+          <a href="ticket.html">Ticket</a>
+          <a href="scan.html">Scan desk</a>
+          <a href="draw.html">Lucky draw</a>
+          <a href="guides.html">Guides</a>
+          <a href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow"><span data-event="weekday">Saturday</span> · doors at <span data-event="time">18:30</span> · one very good draw</p>
+          <h1 class="hero-title">
+            The Christmas Thing
+            <span>you're on the list, aren't you?</span>
+          </h1>
+          <p class="hero-lede">
+            Register once, get a QR ticket, and walk in without a clipboard in sight. Your name
+            lands in the Excel sheet the second you sign up — the door, the kitchen, and the
+            lucky draw all read from the same file.
+          </p>
+          <div class="hero-meta">
+            <span class="chip"><span class="dot"></span><span data-event="date">19 December 2026</span></span>
+            <span class="chip"><span data-event="venue">The Workshop — 4th floor</span></span>
+            <span class="chip">Doors <span data-event="time">18:30</span></span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-lg" href="register.html">Register for the night</a>
+            <a class="btn btn-ghost btn-lg" href="ticket.html">I already have a ticket</a>
+          </div>
+        </div>
+
+        <aside class="plaque">
+          <p class="plaque-month" data-event="date-month">DECEMBER</p>
+          <p class="plaque-day" data-event="date-day">19</p>
+          <p class="plaque-venue">One roof. Too many cookies. <span data-event="venue">The Workshop — 4th floor</span></p>
+          <div class="plaque-time">
+            <span>Doors <span data-event="time">18:30</span></span>
+            <span>RSVP by <span data-event="deadline">12 December</span></span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="stats" aria-label="Live event numbers">
+        <div class="stat">
+          <p class="stat-value" data-stat="registered">—</p>
+          <p class="stat-label">Registered</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value" data-stat="checked_in">—</p>
+          <p class="stat-label">Checked in</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value" data-stat="pending">—</p>
+          <p class="stat-label">Still to arrive</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value" data-stat="prizes">—</p>
+          <p class="stat-label">Prizes drawn</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="eyebrow">The whole site, five doors</p>
+          <h2 class="section-title">Pick where you're going</h2>
+        </div>
+        <div class="nav-grid">
+          <a class="nav-card" href="register.html">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <path d="M7 3h10a1 1 0 011 1v16a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" />
+                <path d="M9 8h6M9 12h6M9 16h3" />
+              </svg>
+            </span>
+            <h3>Registration</h3>
+            <p>A form that feels like Microsoft Forms, except it writes straight into the spreadsheet.</p>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+
+          <a class="nav-card" href="ticket.html">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <path d="M3 5h7v7H3zM14 5h7v7h-7zM3 14h7v7H3z" />
+                <path d="M14 14h3v3h-3zM19 19h2v2h-2z" />
+              </svg>
+            </span>
+            <h3>My ticket</h3>
+            <p>Look up your QR code by name or ticket ID, then screenshot it for the door.</p>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+
+          <a class="nav-card" href="scan.html">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <path d="M4 8V5a1 1 0 011-1h3M20 8V5a1 1 0 00-1-1h-3M4 16v3a1 1 0 001 1h3M20 16v3a1 1 0 01-1 1h-3" />
+                <path d="M12 8v8M8 12h8" />
+              </svg>
+            </span>
+            <h3>Scan desk</h3>
+            <p>The old-school door scanner. Point the laptop camera at a ticket, hear the chime, done.</p>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+
+          <a class="nav-card" href="draw.html">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <path d="M12 3l2 5.5L20 10l-4.5 4 1.2 6L12 17l-4.7 3 1.2-6L4 10l6-1.5L12 3z" />
+              </svg>
+            </span>
+            <h3>Lucky draw</h3>
+            <p>A reel, a drum roll, and a winner picked from the checked-in sheet. One win per person.</p>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+
+          <a class="nav-card" href="guides.html">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <path d="M4 5.5A2.5 2.5 0 016.5 3H20v15.5H6.5A2.5 2.5 0 004 21V5.5z" />
+                <path d="M8 8h8M8 12h6" />
+              </svg>
+            </span>
+            <h3>Event guides</h3>
+            <p>Arrival, schedule, dietary notes, draw rules, and where the lost property lives.</p>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+
+          <a class="nav-card" href="admin.html">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <path d="M9 4h6a1 1 0 011 1v1H8V5a1 1 0 011-1z" />
+                <path d="M6 6h12a1 1 0 011 1v13a1 1 0 01-1 1H6a1 1 0 01-1-1V7a1 1 0 011-1z" />
+                <path d="M9 11h6M9 15h4" />
+              </svg>
+            </span>
+            <h3>Admin</h3>
+            <p>The guest list, live stats, manual check-in fixes, and a download of the Excel file.</p>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <div class="divider-star" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z"/></svg>
+      </div>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="eyebrow">How the night flows</p>
+          <h2 class="section-title">Four steps, no clipboard</h2>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <h4>Sign up</h4>
+            <p>Fill in the registration form. A row appears in <code>attendees.xlsx</code> instantly, and you get a ticket code.</p>
+          </article>
+          <article class="step">
+            <h4>Get your QR</h4>
+            <p>Your ticket page renders a QR code. Screenshot it, add it to your wallet, or keep the tab open.</p>
+          </article>
+          <article class="step">
+            <h4>Scan at the door</h4>
+            <p>The desk scans you in. Status flips to <em>Checked in</em>, the timestamp fills itself, the chime plays.</p>
+          </article>
+          <article class="step">
+            <h4>Win something</h4>
+            <p>At 21:30 the draw reads the checked-in names, picks one at random, and logs it on the Winners sheet.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card card-dark">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Under the hood</p>
+              <h2 class="card-title">One Excel file is the whole database</h2>
+              <p class="card-sub">
+                No accounts, no cloud, no monthly bill. The app reads and writes
+                <code>data/attendees.xlsx</code> live — you can open it, fix a typo, add a column,
+                and the site picks it up on the next read.
+              </p>
+            </div>
+          </div>
+          <hr class="rule" />
+          <div class="row" style="margin-top: 18px">
+            <a class="btn btn-gold" href="/api/export">Download the sheet</a>
+            <a class="btn btn-ghost" href="admin.html">Open admin</a>
+            <span class="tiny">Tabs: Attendees · Winners · Read me</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <span>Made for one night in December · <span data-event="year">2026</span></span>
+        <span><a href="guides.html">Guides</a> · <a href="scan.html">Scan desk</a> · <a href="admin.html">Admin</a></span>
+      </div>
+    </footer>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+    <script src="js/common.js"></script>
+  </body>
+</html>

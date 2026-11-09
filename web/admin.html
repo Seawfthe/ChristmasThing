@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin · The Christmas Thing</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+  </head>
+  <body data-page="admin">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z" fill="currentColor" opacity=".9" />
+            <circle cx="12" cy="12" r="1.6" fill="#0a1511" />
+          </svg>
+          <span class="brand-text">
+            <strong data-event="name">The Christmas Thing</strong>
+            <em data-event="date">19 December 2026</em>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="register.html">Register</a>
+          <a href="ticket.html">Ticket</a>
+          <a href="scan.html">Scan desk</a>
+          <a href="draw.html">Lucky draw</a>
+          <a href="guides.html">Guides</a>
+          <a href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell page">
+      <div class="page-head">
+        <p class="eyebrow">Admin · behind the desk</p>
+        <h1>The guest list</h1>
+        <p class="muted">
+          Live view of <code>data/attendees.xlsx</code>. Fix a missed scan, search for a name, or
+          take the file away at the end of the night. No login yet — keep this page on the desk
+          laptop.
+        </p>
+      </div>
+
+      <section class="admin-stats" aria-label="Event totals">
+        <div class="stat">
+          <p class="stat-value" data-stat="registered">—</p>
+          <p class="stat-label">Registered</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value" data-stat="checked_in">—</p>
+          <p class="stat-label">Checked in</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value" data-stat="pending">—</p>
+          <p class="stat-label">Still to arrive</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value" data-stat="prizes">—</p>
+          <p class="stat-label">Prizes drawn</p>
+        </div>
+      </section>
+
+      <div class="admin-note" style="margin-bottom: 20px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 8v5M12 16h.01" />
+        </svg>
+        <span>
+          The app writes to the workbook on every change. Close it in Excel while people are checking
+          in, or saves will fail politely. You can safely open it between rushes and re-download a
+          copy below.
+        </span>
+      </div>
+
+      <section class="card">
+        <div class="toolbar">
+          <input class="input search" id="search" type="search" placeholder="Search name, email, ticket, team…" autocomplete="off" />
+          <select class="select" id="status-filter" aria-label="Filter by status">
+            <option value="all">Everyone</option>
+            <option value="present">Checked in</option>
+            <option value="pending">Still to arrive</option>
+          </select>
+          <button class="btn btn-quiet btn-sm" id="refresh" type="button">Refresh</button>
+          <a class="btn btn-sm" href="/api/export">Download Excel</a>
+        </div>
+
+        <div id="admin-error" class="form-error hidden" role="alert" style="margin-bottom: 14px"></div>
+
+        <div class="table-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>Guest</th>
+                <th>Ticket</th>
+                <th>Team</th>
+                <th>Registered</th>
+                <th>Status</th>
+                <th>Checked in</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="attendee-rows">
+              <tr class="empty-row">
+                <td colspan="7"><span class="loading"><span class="spinner"></span> Loading the guest list…</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="spread" style="margin-top: 16px">
+          <p class="tiny" id="table-count" style="color: var(--ink-mute)"></p>
+          <p class="tiny" style="color: var(--ink-mute)">Auto-refreshes every 10 seconds.</p>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top: 24px">
+        <div class="card-head">
+          <div>
+            <p class="eyebrow" style="color: var(--gold-deep)">Danger zone</p>
+            <h2 class="card-title" style="font-size: 1.2rem">Start the draw over</h2>
+            <p class="card-sub">Clears the Winners sheet. Registration and check-ins are untouched.</p>
+          </div>
+          <button class="btn btn-quiet btn-sm" id="reset-draw" type="button" style="border-color: rgba(178, 58, 54, 0.4); color: var(--crimson)">
+            Reset winners
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <span>Made for one night in December · <span data-event="year">2026</span></span>
+        <span><a href="guides.html">Guides</a> · <a href="scan.html">Scan desk</a> · <a href="index.html">Home</a></span>
+      </div>
+    </footer>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+    <script src="js/common.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>

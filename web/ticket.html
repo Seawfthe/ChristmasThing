@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My ticket · The Christmas Thing</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+  </head>
+  <body data-page="ticket">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z" fill="currentColor" opacity=".9" />
+            <circle cx="12" cy="12" r="1.6" fill="#0a1511" />
+          </svg>
+          <span class="brand-text">
+            <strong data-event="name">The Christmas Thing</strong>
+            <em data-event="date">19 December 2026</em>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="register.html">Register</a>
+          <a href="ticket.html">Ticket</a>
+          <a href="scan.html">Scan desk</a>
+          <a href="draw.html">Lucky draw</a>
+          <a href="guides.html">Guides</a>
+          <a href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell page">
+      <div class="page-head">
+        <p class="eyebrow">My ticket</p>
+        <h1>Find your QR code</h1>
+        <p class="muted">
+          Type the ticket ID from your confirmation (it looks like <code>CT-4KQ2-9WMB</code>), or
+          search your name. Then screenshot it — that's your way in.
+        </p>
+      </div>
+
+      <div class="lookup">
+        <form class="lookup-form" id="lookup-form">
+          <input
+            class="input"
+            id="lookup-input"
+            name="query"
+            type="text"
+            placeholder="CT-XXXX-XXXX or your name"
+            aria-label="Ticket code or name"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="btn" id="lookup-btn" type="submit">Find ticket</button>
+        </form>
+        <p class="tiny" id="lookup-hint">Codes are printed under the QR on your ticket page.</p>
+      </div>
+
+      <div id="lookup-error" class="form-error hidden" role="alert" style="max-width: 620px; margin: 18px auto 0"></div>
+
+      <section id="results" class="hidden" style="max-width: 620px; margin: 24px auto 0">
+        <p class="eyebrow" style="margin-bottom: 12px">Matches</p>
+        <div class="stack-sm" id="result-list"></div>
+      </section>
+
+      <section id="ticket-view" class="hidden">
+        <div class="ticket-wrap">
+          <div class="ticket" id="ticket">
+            <div class="ticket-top">
+              <div class="ticket-event">
+                <span data-event="name">The Christmas Thing</span>
+                <small><span data-event="date">19 December 2026</span> · <span data-event="time">18:30</span></small>
+              </div>
+              <span class="ticket-admit">Admit one</span>
+            </div>
+            <div class="ticket-perf"></div>
+            <div class="ticket-qr">
+              <div class="ticket-qr-box" id="ticket-qr"></div>
+            </div>
+            <div class="ticket-name" id="ticket-name">—</div>
+            <div class="ticket-sub" id="ticket-team"></div>
+            <div class="ticket-code">
+              <span id="ticket-code-text">—</span>
+              <button class="btn btn-quiet btn-sm no-print" id="copy-code" type="button" aria-label="Copy ticket code">Copy</button>
+            </div>
+            <div class="ticket-foot">
+              <span><span data-event="venue">The Workshop</span></span>
+              <span class="ticket-status" id="ticket-status">Registered</span>
+            </div>
+          </div>
+
+          <div class="ticket-actions no-print">
+            <button class="btn" id="print-ticket" type="button">Print ticket</button>
+            <button class="btn btn-ghost" id="copy-link" type="button">Copy ticket link</button>
+            <a class="btn btn-ghost" href="scan.html">I'm at the door</a>
+          </div>
+          <p class="tiny center no-print" id="ticket-footnote"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer no-print">
+      <div class="shell footer-inner">
+        <span>Made for one night in December · <span data-event="year">2026</span></span>
+        <span><a href="guides.html">Guides</a> · <a href="register.html">Register</a> · <a href="admin.html">Admin</a></span>
+      </div>
+    </footer>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+    <script src="vendor/qrcode.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/ticket.js"></script>
+  </body>
+</html>

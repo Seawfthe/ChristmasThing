@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+# The live database is generated at runtime — don't commit guests' details.
+data/attendees.xlsx

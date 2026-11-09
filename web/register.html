@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register · The Christmas Thing</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+  </head>
+  <body data-page="register">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z" fill="currentColor" opacity=".9" />
+            <circle cx="12" cy="12" r="1.6" fill="#0a1511" />
+          </svg>
+          <span class="brand-text">
+            <strong data-event="name">The Christmas Thing</strong>
+            <em data-event="date">19 December 2026</em>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="register.html">Register</a>
+          <a href="ticket.html">Ticket</a>
+          <a href="scan.html">Scan desk</a>
+          <a href="draw.html">Lucky draw</a>
+          <a href="guides.html">Guides</a>
+          <a href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell page">
+      <div class="page-head">
+        <p class="eyebrow">Registration</p>
+        <h1>Put your name on the list</h1>
+        <p class="muted">
+          Two required fields, everything else optional. The moment you submit, a row lands in the
+          Excel sheet and a QR ticket is minted for you.
+        </p>
+      </div>
+
+      <div class="split">
+        <section class="card" id="form-card">
+          <form id="register-form" novalidate>
+            <div class="form-grid">
+              <div class="field field-full">
+                <label for="name">Your name <span class="hint">— required</span></label>
+                <input class="input" id="name" name="name" type="text" autocomplete="name" placeholder="Ada Lovelace" maxlength="80" required />
+              </div>
+
+              <div class="field">
+                <label for="email">Email <span class="hint">— used to find your ticket again</span></label>
+                <input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="ada@example.com" maxlength="120" />
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone <span class="hint">— optional</span></label>
+                <input class="input" id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+44 7700 900123" maxlength="40" />
+              </div>
+
+              <div class="field">
+                <label for="team">Team / organisation</label>
+                <input class="input" id="team" name="team" type="text" placeholder="Engine Room" maxlength="80" />
+              </div>
+
+              <div class="field">
+                <label for="role">You are a…</label>
+                <select class="select" id="role" name="role">
+                  <option>Guest</option>
+                  <option>Plus one</option>
+                  <option>Volunteer</option>
+                  <option>Organiser</option>
+                  <option>Performer</option>
+                </select>
+              </div>
+
+              <div class="field field-full">
+                <label for="dietary">Dietary needs <span class="hint">— the kitchen prints this list</span></label>
+                <input class="input" id="dietary" name="dietary" type="text" placeholder="Vegan, nut allergy, no mushrooms…" maxlength="120" />
+              </div>
+
+              <div class="field field-full">
+                <label for="notes">Anything else? <span class="hint">— optional</span></label>
+                <textarea class="textarea" id="notes" name="notes" placeholder="Arriving late, bringing a plus one, need step-free access…" maxlength="500"></textarea>
+              </div>
+            </div>
+
+            <div id="form-error" class="form-error hidden" role="alert"></div>
+
+            <div class="form-foot">
+              <p class="form-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <rect x="4" y="10" width="16" height="10" rx="2" />
+                  <path d="M8 10V7a4 4 0 118 0v3" />
+                </svg>
+                <span>Your details stay on this machine, inside one Excel file. Nothing is uploaded anywhere.</span>
+              </p>
+              <button class="btn btn-lg" id="submit-btn" type="submit">Create my ticket</button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="stack">
+          <div class="card card-dark side-note">
+            <p class="eyebrow">Already signed up?</p>
+            <h3 class="card-title">Don't make a second row</h3>
+            <p class="card-sub">
+              If you use the same email, the app finds your existing ticket instead of adding you
+              twice. You can also look yourself up by name or ticket ID.
+            </p>
+            <a class="btn btn-ghost btn-sm" href="ticket.html" style="margin-top: 14px">Find my ticket</a>
+          </div>
+
+          <div class="card card-dark side-note">
+            <p class="eyebrow">On the night</p>
+            <ol class="mini-steps">
+              <li>Show the QR at the door — it scans in a second.</li>
+              <li>Keep the tab open if you can; the code is your entry into the draw.</li>
+              <li>Checked in before 21:30 means you're in the lucky draw.</li>
+            </ol>
+          </div>
+
+          <p class="tiny" id="people-count"></p>
+        </aside>
+      </div>
+
+      <section class="card success-card hidden" id="success-card">
+        <div class="success-head">
+          <p class="eyebrow" id="success-eyebrow">You're in</p>
+          <h2 class="card-title" id="success-title">Welcome to the list</h2>
+          <p class="card-sub" id="success-sub"></p>
+        </div>
+
+        <div class="ticket-wrap">
+          <div class="ticket" id="success-ticket">
+            <div class="ticket-top">
+              <div class="ticket-event">
+                <span data-event="name">The Christmas Thing</span>
+                <small><span data-event="date">19 December 2026</span> · <span data-event="time">18:30</span></small>
+              </div>
+              <span class="ticket-admit">Admit one</span>
+            </div>
+            <div class="ticket-perf"></div>
+            <div class="ticket-qr">
+              <div class="ticket-qr-box" id="success-qr"></div>
+            </div>
+            <div class="ticket-name" id="success-name">—</div>
+            <div class="ticket-sub" id="success-team"></div>
+            <div class="ticket-code">
+              <span id="success-code">—</span>
+            </div>
+            <div class="ticket-foot">
+              <span><span data-event="venue">The Workshop</span></span>
+              <span class="ticket-status">Registered</span>
+            </div>
+          </div>
+
+          <div class="ticket-actions">
+            <a class="btn" id="open-ticket" href="ticket.html">Open full ticket</a>
+            <button class="btn btn-ghost" id="copy-ticket" type="button">Copy ticket link</button>
+            <button class="btn btn-ghost" id="register-another" type="button">Register someone else</button>
+          </div>
+          <p class="tiny center">Screenshot the QR, or print the ticket page. Both scan the same.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <span>Made for one night in December · <span data-event="year">2026</span></span>
+        <span><a href="guides.html">Guides</a> · <a href="ticket.html">My ticket</a> · <a href="admin.html">Admin</a></span>
+      </div>
+    </footer>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+    <script src="vendor/qrcode.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/register.js"></script>
+  </body>
+</html>

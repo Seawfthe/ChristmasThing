@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lucky draw · The Christmas Thing</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+  </head>
+  <body data-page="draw">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z" fill="currentColor" opacity=".9" />
+            <circle cx="12" cy="12" r="1.6" fill="#0a1511" />
+          </svg>
+          <span class="brand-text">
+            <strong data-event="name">The Christmas Thing</strong>
+            <em data-event="date">19 December 2026</em>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="register.html">Register</a>
+          <a href="ticket.html">Ticket</a>
+          <a href="scan.html">Scan desk</a>
+          <a href="draw.html">Lucky draw</a>
+          <a href="guides.html">Guides</a>
+          <a href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell page">
+      <div class="page-head">
+        <p class="eyebrow">Lucky draw</p>
+        <h1>One name, out of the sheet</h1>
+        <p class="muted">
+          The draw reads the same Excel file the door uses. Only checked-in guests are eligible,
+          and nobody wins twice. Turn the laptop towards the room and press the button.
+        </p>
+      </div>
+
+      <div class="draw-layout">
+        <section class="stack">
+          <div class="reel-card">
+            <p class="reel-label" id="reel-prize">Grand prize</p>
+            <p class="reel" id="reel">—</p>
+            <p class="reel-sub" id="reel-sub">Waiting for the room to quiet down.</p>
+            <div class="row center" style="justify-content: center">
+              <button class="btn btn-lg btn-gold" id="draw-btn" type="button">Draw a winner</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="form-grid">
+              <div class="field">
+                <label for="prize-select">Prize</label>
+                <select class="select" id="prize-select"></select>
+              </div>
+              <div class="field">
+                <label for="prize-custom">Or a custom prize</label>
+                <input class="input" id="prize-custom" type="text" placeholder="Optional — overrides the list" maxlength="120" />
+              </div>
+              <div class="field">
+                <label for="eligible-select">Who can win</label>
+                <select class="select" id="eligible-select">
+                  <option value="checked_in">Checked-in guests only</option>
+                  <option value="registered">Everyone registered</option>
+                </select>
+              </div>
+              <div class="field" style="align-content: end">
+                <label class="checkline" for="allow-repeat">
+                  <input type="checkbox" id="allow-repeat" />
+                  <span>Allow previous winners to win again</span>
+                </label>
+              </div>
+            </div>
+            <p class="tiny" id="pool-note" style="margin-top: 14px">Loading the guest list…</p>
+          </div>
+        </section>
+
+        <aside class="card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow" style="color: var(--gold-deep)">On record</p>
+              <h2 class="card-title">Tonight's winners</h2>
+              <p class="card-sub">Also written to the Winners sheet in Excel.</p>
+            </div>
+          </div>
+          <div class="draw-history" id="draw-history">
+            <p class="tiny" style="color: var(--ink-mute)">No prizes drawn yet.</p>
+          </div>
+          <hr class="rule" style="margin: 18px 0" />
+          <div class="spread">
+            <div>
+              <p class="stat-value" style="color: var(--ink)" data-stat="prizes">0</p>
+              <p class="stat-label" style="color: var(--ink-mute)">Prizes drawn</p>
+            </div>
+            <a class="btn btn-quiet btn-sm" href="scan.html">Back to the door</a>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <span>Made for one night in December · <span data-event="year">2026</span></span>
+        <span><a href="guides.html">Draw rules</a> · <a href="admin.html">Admin</a></span>
+      </div>
+    </footer>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+    <script src="js/common.js"></script>
+    <script src="js/draw.js"></script>
+  </body>
+</html>

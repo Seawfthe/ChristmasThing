@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Event guides · The Christmas Thing</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+  </head>
+  <body data-page="guides">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z" fill="currentColor" opacity=".9" />
+            <circle cx="12" cy="12" r="1.6" fill="#0a1511" />
+          </svg>
+          <span class="brand-text">
+            <strong data-event="name">The Christmas Thing</strong>
+            <em data-event="date">19 December 2026</em>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="register.html">Register</a>
+          <a href="ticket.html">Ticket</a>
+          <a href="scan.html">Scan desk</a>
+          <a href="draw.html">Lucky draw</a>
+          <a href="guides.html">Guides</a>
+          <a href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell page">
+      <div class="page-head">
+        <p class="eyebrow">Event guides</p>
+        <h1>The things worth knowing</h1>
+        <p class="muted">
+          Everything a guest might ask at the door, and a couple of things they won't think to ask
+          until it's 21:29 and the draw is about to start.
+        </p>
+      </div>
+
+      <div class="guides-layout">
+        <aside class="toc" id="toc" aria-label="Guide contents"></aside>
+        <div id="guides">
+          <p class="loading"><span class="spinner"></span> Loading the guides…</p>
+        </div>
+      </div>
+
+      <div class="divider-star" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z"/></svg>
+      </div>
+
+      <div class="card card-dark">
+        <div class="spread">
+          <div>
+            <p class="eyebrow">Still stuck?</p>
+            <h2 class="card-title">Ask a human in a green lanyard</h2>
+            <p class="card-sub">Or shout at the desk by the entrance. They have the ingredient sheet.</p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-gold" href="ticket.html">Find my ticket</a>
+            <a class="btn btn-ghost" href="register.html">Register</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <span>Made for one night in December · <span data-event="year">2026</span></span>
+        <span><a href="index.html">Home</a> · <a href="scan.html">Scan desk</a> · <a href="admin.html">Admin</a></span>
+      </div>
+    </footer>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+    <script src="js/common.js"></script>
+    <script src="js/guides.js"></script>
+  </body>
+</html>

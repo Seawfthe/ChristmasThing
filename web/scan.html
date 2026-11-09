@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scan desk · The Christmas Thing</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+  </head>
+  <body data-page="scan">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z" fill="currentColor" opacity=".9" />
+            <circle cx="12" cy="12" r="1.6" fill="#0a1511" />
+          </svg>
+          <span class="brand-text">
+            <strong data-event="name">The Christmas Thing</strong>
+            <em data-event="date">19 December 2026</em>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="register.html">Register</a>
+          <a href="ticket.html">Ticket</a>
+          <a href="scan.html">Scan desk</a>
+          <a href="draw.html">Lucky draw</a>
+          <a href="guides.html">Guides</a>
+          <a href="admin.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell page">
+      <div class="page-head">
+        <p class="eyebrow">Scan desk · door duty</p>
+        <h1>Scan them in</h1>
+        <p class="muted">
+          Point the camera at the QR on someone's ticket. The moment it reads, their row in the
+          Excel sheet flips to <em>Checked in</em>. If the camera is being shy, type the code.
+        </p>
+      </div>
+
+      <div class="scan-layout">
+        <section class="card card-dark">
+          <div class="scan-stage" id="scan-stage">
+            <video id="scan-video" playsinline muted></video>
+            <canvas id="scan-canvas" hidden></canvas>
+            <div class="scan-idle" id="scan-idle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M4 8V5a1 1 0 011-1h3M20 8V5a1 1 0 00-1-1h-3M4 16v3a1 1 0 001 1h3M20 16v3a1 1 0 01-1 1h-3" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <p>Camera is off</p>
+              <button class="btn btn-gold" id="start-camera" type="button">Start camera</button>
+              <p class="tiny">Your browser will ask for permission. Nothing is recorded or uploaded.</p>
+            </div>
+            <div class="scan-frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div class="scan-line" aria-hidden="true"></div>
+            <div class="scan-flash" id="scan-flash" aria-hidden="true"></div>
+          </div>
+
+          <div class="row" style="margin-top: 16px; justify-content: space-between">
+            <span class="chip"><span class="dot"></span><span id="cam-state">Camera off</span></span>
+            <div class="row">
+              <label class="tiny toggle">
+                <input type="checkbox" id="sound-toggle" checked />
+                <span>Sound</span>
+              </label>
+              <button class="btn btn-ghost btn-sm" id="stop-camera" type="button" disabled>Stop camera</button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="stack">
+          <div class="card card-dark">
+            <div class="scan-result" id="scan-result">
+              <span class="eyebrow">Ready</span>
+              <p class="name">Waiting for a ticket</p>
+              <p class="meta">Scan a QR code, or type the ticket ID below.</p>
+            </div>
+
+            <form class="manual-entry" id="manual-form" style="margin-top: 14px">
+              <input class="input" id="manual-code" type="text" placeholder="CT-XXXX-XXXX" aria-label="Ticket ID" autocomplete="off" spellcheck="false" />
+              <button class="btn" id="manual-btn" type="submit">Check in</button>
+            </form>
+            <p class="tiny" id="manual-hint" style="margin-top: 8px">Codes are not case sensitive.</p>
+
+            <hr class="rule" style="margin: 18px 0" />
+
+            <div class="spread" style="margin-bottom: 6px">
+              <span class="eyebrow">Recent check-ins</span>
+              <span class="tiny" id="scan-counter">0 of 0</span>
+            </div>
+            <ul class="log" id="scan-log">
+              <li><span class="who">No one yet tonight</span><span class="when">—</span></li>
+            </ul>
+
+            <a class="btn btn-ghost btn-sm" href="admin.html" style="margin-top: 16px">Fix a mistake in admin</a>
+          </div>
+
+          <div class="card card-dark">
+            <p class="eyebrow" style="margin-bottom: 10px">Door stats</p>
+            <div class="door-stats">
+              <div>
+                <p class="stat-value" data-stat="checked_in">0</p>
+                <p class="stat-label">Checked in</p>
+              </div>
+              <div>
+                <p class="stat-value" data-stat="registered">0</p>
+                <p class="stat-label">Registered</p>
+              </div>
+              <div>
+                <p class="stat-value" data-stat="pending">0</p>
+                <p class="stat-label">Still out</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <span>Made for one night in December · <span data-event="year">2026</span></span>
+        <span><a href="guides.html">Guides</a> · <a href="draw.html">Lucky draw</a> · <a href="admin.html">Admin</a></span>
+      </div>
+    </footer>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+    <script src="vendor/jsQR.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/scan.js"></script>
+  </body>
+</html>
