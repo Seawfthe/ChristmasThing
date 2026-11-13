@@ -16,12 +16,16 @@ import json
 import mimetypes
 import socket
 import sys
+import threading
+import time
 import traceback
 import webbrowser
+from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlsplit
 
+from app.auth import SessionStore, verify_password
 from app.config import EventConfig
 from app.service import EventService
 from app.store import ExcelStore, StoreError
@@ -32,9 +36,14 @@ DATA_DIR = BASE_DIR / "data"
 WORKBOOK = DATA_DIR / "attendees.xlsx"
 
 MAX_BODY = 2 * 1024 * 1024
+COOKIE_NAME = "ct_admin"
+LOGIN_WINDOW = 300  # seconds
+LOGIN_MAX_ATTEMPTS = 8
 
 STATUS_BY_CODE = {
     "validation": 400,
+    "unauthorized": 401,
+    "rate_limited": 429,
     "not_found": 404,
     "file_locked": 409,
     "empty_pool": 409,
@@ -66,8 +75,12 @@ def lan_ip() -> str:
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "ChristmasThing/0.2"
+    server_version = "ChristmasThing/0.3"
     service: EventService  # injected by build_server
+    sessions: SessionStore  # injected by build_server
+
+    _login_attempts: dict[str, list[float]] = {}
+    _login_lock = threading.Lock()
 
     # ------------------------------------------------------------- plumbing
     def log_message(self, fmt: str, *args) -> None:  # quieter console
@@ -111,19 +124,94 @@ class Handler(BaseHTTPRequestHandler):
             raise StoreError("Expected a JSON object.", "validation")
         return payload
 
-    def _json(self, payload, status: int = 200) -> None:
+    def _json(self, payload, status: int = 200, headers: dict[str, str] | None = None) -> None:
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store")
+        for key, value in (headers or {}).items():
+            self.send_header(key, value)
         self.end_headers()
         self.wfile.write(body)
+
+    # ------------------------------------------------------------ admin auth
+    def _session_token(self) -> str | None:
+        raw = self.headers.get("Cookie")
+        if not raw:
+            return None
+        try:
+            cookie = SimpleCookie(raw)
+        except Exception:  # noqa: BLE001 - malformed cookie header
+            return None
+        morsel = cookie.get(COOKIE_NAME)
+        return morsel.value if morsel else None
+
+    def _is_admin(self) -> bool:
+        return self.sessions.valid(self._session_token())
+
+    def _require_admin(self) -> None:
+        if not self._is_admin():
+            raise StoreError("Admin login required.", "unauthorized")
+
+    def _session_cookie(self, value: str, max_age: int) -> str:
+        cookie = SimpleCookie()
+        cookie[COOKIE_NAME] = value
+        cookie[COOKIE_NAME]["path"] = "/"
+        cookie[COOKIE_NAME]["httponly"] = True
+        cookie[COOKIE_NAME]["samesite"] = "Strict"
+        cookie[COOKIE_NAME]["max-age"] = max_age
+        return cookie.output(header="").strip()
+
+    def _login_allowed(self) -> bool:
+        ip = self.client_address[0] if self.client_address else "?"
+        now = time.time()
+        with Handler._login_lock:
+            attempts = [
+                stamp for stamp in Handler._login_attempts.get(ip, []) if now - stamp < LOGIN_WINDOW
+            ]
+            Handler._login_attempts[ip] = attempts
+            if len(attempts) >= LOGIN_MAX_ATTEMPTS:
+                return False
+            attempts.append(now)
+            return True
+
+    def _admin_login(self, body: dict) -> None:
+        if not self._login_allowed():
+            raise StoreError("Too many attempts. Wait a few minutes and try again.", "rate_limited")
+        password_config = ((self.service.config().get("admin") or {}).get("password")) or {}
+        if not password_config.get("hash"):
+            raise StoreError(
+                "No admin password is configured. Run scripts/set_admin_password.py.",
+                "missing_dependency",
+            )
+        password = str(body.get("password") or "")
+        if not verify_password(password, self.service.config()):
+            time.sleep(0.25)  # slow down guessing
+            raise StoreError("That password doesn't match.", "unauthorized")
+        token, ttl = self.sessions.create()
+        self._json(
+            {"ok": True, "expires_in": ttl},
+            headers={"Set-Cookie": self._session_cookie(token, ttl)},
+        )
+
+    def _admin_logout(self) -> None:
+        self.sessions.destroy(self._session_token())
+        self._json({"ok": True}, headers={"Set-Cookie": self._session_cookie("", 0)})
 
     # ------------------------------------------------------------------ API
     def _handle_api(self, method: str, path: str, query: dict[str, list[str]]) -> None:
         service = self.service
         q = lambda name, default="": (query.get(name, [default]) or [default])[0]
+
+        if method == "POST" and path == "/api/admin/login":
+            return self._admin_login(self._body())
+
+        if method == "POST" and path == "/api/admin/logout":
+            return self._admin_logout()
+
+        if method == "GET" and path == "/api/admin/session":
+            return self._json({"authenticated": self._is_admin()})
 
         if method == "GET" and path == "/api/bootstrap":
             return self._json(service.bootstrap())
@@ -131,7 +219,11 @@ class Handler(BaseHTTPRequestHandler):
         if method == "GET" and path == "/api/stats":
             return self._json({"stats": service.stats()})
 
+        if method == "GET" and path == "/api/lookup":
+            return self._json({"attendees": service.lookup(query=q("query"))})
+
         if method == "GET" and path == "/api/attendees":
+            self._require_admin()
             return self._json(
                 {
                     "attendees": service.attendees(query=q("query"), status=q("status")),
@@ -150,6 +242,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(service.draw_history())
 
         if method == "GET" and path == "/api/export":
+            self._require_admin()
             return self._send_workbook()
 
         if method == "POST" and path == "/api/register":
@@ -160,6 +253,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(service.check_in(body.get("code", ""), body.get("source", "scan")))
 
         if method == "POST" and path == "/api/checkin/undo":
+            self._require_admin()
             body = self._body()
             return self._json(service.undo_check_in(body.get("code", "")))
 
@@ -174,6 +268,7 @@ class Handler(BaseHTTPRequestHandler):
             )
 
         if method == "POST" and path == "/api/draw/reset":
+            self._require_admin()
             return self._json(service.reset_draw())
 
         raise StoreError("Unknown endpoint.", "not_found")
@@ -237,7 +332,11 @@ def build_server(host: str, port: int) -> ThreadingHTTPServer:
     config = EventConfig(DATA_DIR)
     store = ExcelStore(WORKBOOK)
     store.ensure()
+    event_config = config.config()
     Handler.service = EventService(store, config.config, config.guides)
+    Handler.sessions = SessionStore(
+        int((event_config.get("admin") or {}).get("session_minutes") or 720)
+    )
     httpd = ThreadingHTTPServer((host, port), Handler)
     httpd.daemon_threads = True
     return httpd

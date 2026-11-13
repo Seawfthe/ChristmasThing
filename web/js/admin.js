@@ -1,4 +1,4 @@
-/* Admin: the guest list, manual fixes, and the Excel download. */
+/* Admin: password-gated guest list, manual fixes, and the Excel download. */
 (() => {
   const tbody = App.$("#attendee-rows");
   const search = App.$("#search");
@@ -7,8 +7,82 @@
   const tableCount = App.$("#table-count");
   const refreshBtn = App.$("#refresh");
 
+  const lockView = App.$("#admin-lock");
+  const shell = App.$("#admin-shell");
+  const loginForm = App.$("#admin-login-form");
+  const passwordInput = App.$("#admin-password");
+  const loginButton = App.$("#admin-login-btn");
+  const loginError = App.$("#admin-login-error");
+  const lockButton = App.$("#lock-admin");
+
   let pending = false;
 
+  /* ---------------------------------------------------------------- gating */
+  function showLoginError(message) {
+    loginError.textContent = message;
+    loginError.classList.toggle("hidden", !message);
+  }
+
+  function showLock(message) {
+    lockView.classList.remove("hidden");
+    shell.classList.add("hidden");
+    showLoginError(message || "");
+    setTimeout(() => passwordInput.focus(), 80);
+  }
+
+  function showShell() {
+    lockView.classList.add("hidden");
+    shell.classList.remove("hidden");
+    showLoginError("");
+  }
+
+  function shake() {
+    const card = lockView.querySelector(".lock-card");
+    card.classList.add("is-shaking");
+    setTimeout(() => card.classList.remove("is-shaking"), 360);
+  }
+
+  async function ensureAccess() {
+    const unlocked = await AdminAuth.refresh();
+    if (unlocked) {
+      showShell();
+      await load();
+    } else {
+      showLock("");
+    }
+  }
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    showLoginError("");
+    App.setBusy(loginButton, true, "Checking…");
+    try {
+      await AdminAuth.login(passwordInput.value);
+      passwordInput.value = "";
+      showShell();
+      App.toast("Admin unlocked", "ok");
+      await load();
+    } catch (error) {
+      passwordInput.value = "";
+      showLoginError(
+        error.status === 429
+          ? "Too many attempts. Wait a few minutes, then try again."
+          : error.message || "That password doesn't match."
+      );
+      shake();
+      passwordInput.focus();
+    } finally {
+      App.setBusy(loginButton, false);
+    }
+  });
+
+  lockButton.addEventListener("click", async () => {
+    await AdminAuth.logout();
+    showLock("");
+    App.toast("Admin locked", "");
+  });
+
+  /* ------------------------------------------------------------------ data */
   const showError = (message) => {
     errorBox.textContent = message;
     errorBox.classList.remove("hidden");
@@ -18,7 +92,7 @@
 
   function renderRows(attendees) {
     if (!attendees.length) {
-      tbody.innerHTML = `<tr class="empty-row"><td colspan="7">Nobody matches that. Try a different search.</td></tr>`;
+      tbody.innerHTML = `<tr class="empty-row"><td colspan="7">No guests yet. Register someone, or import a list.</td></tr>`;
       return;
     }
 
@@ -49,10 +123,10 @@
       .join("");
   }
 
-  async function load({ quiet = false } = {}) {
-    if (pending) return;
+  async function load() {
+    if (!AdminAuth.isUnlocked() || pending) return;
     pending = true;
-    if (!quiet) refreshBtn.disabled = true;
+    refreshBtn.disabled = true;
     try {
       const query = search.value.trim();
       const status = filter.value;
@@ -65,6 +139,10 @@
       tableCount.textContent = `${data.attendees.length} of ${data.stats.registered} guests shown · ${data.stats.check_in_rate}% checked in`;
       clearError();
     } catch (error) {
+      if (error.status === 401) {
+        showLock("Session expired — unlock again.");
+        return;
+      }
       showError(error.message);
     } finally {
       pending = false;
@@ -73,6 +151,7 @@
   }
 
   async function act(code, action) {
+    if (!AdminAuth.isUnlocked()) return showLock("Session expired — unlock again.");
     pending = true;
     try {
       if (action === "undo") {
@@ -85,8 +164,12 @@
           data.already_checked_in ? "bad" : "ok"
         );
       }
-      await load({ quiet: true });
+      await load();
     } catch (error) {
+      if (error.status === 401) {
+        showLock("Session expired — unlock again.");
+        return;
+      }
       App.toast(error.message, "bad");
       showError(error.message);
     } finally {
@@ -100,11 +183,12 @@
     act(button.dataset.code, button.dataset.action);
   });
 
-  search.addEventListener("input", App.debounce(() => load({ quiet: true }), 260));
+  search.addEventListener("input", App.debounce(() => load(), 260));
   filter.addEventListener("change", () => load());
   refreshBtn.addEventListener("click", () => load());
 
   App.$("#reset-draw").addEventListener("click", async () => {
+    if (!AdminAuth.isUnlocked()) return showLock("Session expired — unlock again.");
     const sure = window.confirm(
       "Clear the Winners sheet? Everyone stays registered and checked in, but the draw history is gone."
     );
@@ -112,15 +196,22 @@
     try {
       await App.api("/api/draw/reset", { method: "POST", body: {} });
       App.toast("Winners sheet cleared", "ok");
-      await load({ quiet: true });
+      await load();
     } catch (error) {
+      if (error.status === 401) return showLock("Session expired — unlock again.");
       App.toast(error.message, "bad");
     }
   });
 
   setInterval(() => {
-    if (document.visibilityState === "visible" && !pending) load({ quiet: true });
-  }, 10000);
+    if (
+      document.visibilityState === "visible" &&
+      AdminAuth.isUnlocked() &&
+      !pending
+    ) {
+      load();
+    }
+  }, 15000);
 
-  load();
+  ensureAccess();
 })();

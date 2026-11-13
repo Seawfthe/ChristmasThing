@@ -33,15 +33,56 @@
     </header>
 
     <main class="shell page">
-      <div class="page-head">
-        <p class="eyebrow">Admin · behind the desk</p>
-        <h1>The guest list</h1>
-        <p class="muted">
-          Live view of <code>data/attendees.xlsx</code>. Fix a missed scan, search for a name, or
-          take the file away at the end of the night. No login yet — keep this page on the desk
-          laptop.
-        </p>
+      <div class="admin-lock" id="admin-lock">
+        <div class="card lock-card">
+          <span class="lock-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+              <rect x="4" y="10" width="16" height="10" rx="2" />
+              <path d="M8 10V7a4 4 0 118 0v3" />
+              <path d="M12 14v2" />
+            </svg>
+          </span>
+          <p class="eyebrow">Admin · locked</p>
+          <h1 class="lock-title">The desk panel</h1>
+          <p class="card-sub">
+            The guest list, check-in fixes and the Excel export are behind the admin password.
+          </p>
+          <form id="admin-login-form" novalidate>
+            <div class="field">
+              <label for="admin-password">Password</label>
+              <input
+                class="input"
+                id="admin-password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter admin password"
+                required
+              />
+            </div>
+            <p class="form-error hidden" id="admin-login-error" role="alert"></p>
+            <button class="btn btn-lg btn-block" id="admin-login-btn" type="submit">Unlock admin</button>
+          </form>
+          <p class="tiny lock-hint">
+            Session lasts 12 hours. Ask the event lead for the password — it is not the same as any
+            account password.
+          </p>
+        </div>
       </div>
+
+      <div id="admin-shell" class="hidden">
+        <div class="page-head">
+          <div class="spread">
+            <div>
+              <p class="eyebrow">Admin · behind the desk</p>
+              <h1>The guest list</h1>
+              <p class="muted">
+                Live view of <code>data/attendees.xlsx</code>. Fix a missed scan, search for a name,
+                or take the file away at the end of the night.
+              </p>
+            </div>
+            <button class="btn btn-ghost btn-sm" id="lock-admin" type="button">Lock admin</button>
+          </div>
+        </div>
 
       <section class="admin-stats" aria-label="Event totals">
         <div class="stat">
@@ -127,6 +168,7 @@
           </button>
         </div>
       </section>
+      </div>
     </main>
 
     <footer class="footer">
@@ -137,6 +179,7 @@
     </footer>
 
     <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+    <script src="js/admin-auth.js"></script>
     <script src="js/common.js"></script>
     <script src="js/admin.js"></script>
   </body>

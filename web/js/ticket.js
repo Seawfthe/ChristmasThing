@@ -104,7 +104,7 @@
 
     App.setBusy(button, true, "Searching…");
     try {
-      const data = await App.api(`/api/attendees?query=${encodeURIComponent(trimmed)}`);
+      const data = await App.api(`/api/lookup?query=${encodeURIComponent(trimmed)}`);
       const rows = data.attendees || [];
       if (!rows.length) {
         showError(`No one matches “${trimmed}”. Check the spelling, or use the ticket ID.`);

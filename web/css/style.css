@@ -2145,3 +2145,84 @@ code {
     display: none;
   }
 }
+
+/* ------------------------------------------------------------ admin lock */
+.admin-lock {
+  min-height: 62vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 0 48px;
+}
+
+.lock-card {
+  width: min(460px, 100%);
+  padding: 36px 34px 30px;
+  text-align: center;
+}
+
+.lock-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  background: rgba(217, 164, 65, 0.14);
+  border: 1px solid rgba(217, 164, 65, 0.32);
+  color: var(--gold-deep);
+}
+
+.lock-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.lock-title {
+  font-size: 2rem;
+  margin-top: 8px;
+}
+
+.lock-card .card-sub {
+  max-width: 34ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lock-card form {
+  margin-top: 22px;
+  text-align: left;
+}
+
+.lock-card .field > label {
+  text-align: left;
+}
+
+.lock-card .btn {
+  margin-top: 6px;
+}
+
+.lock-card .form-error {
+  margin-top: 10px;
+}
+
+.lock-hint {
+  margin-top: 18px;
+  color: var(--ink-mute);
+}
+
+.lock-card.is-shaking {
+  animation: lock-shake 0.32s ease;
+}
+
+@keyframes lock-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-7px);
+  }
+  75% {
+    transform: translateX(7px);
+  }
+}

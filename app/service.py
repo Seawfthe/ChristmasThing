@@ -97,6 +97,19 @@ class EventService:
         rows.sort(key=lambda row: row.get("name", "").casefold())
         return rows
 
+    # Fields a guest is allowed to see when searching their own ticket.
+    PUBLIC_FIELDS = ("ticket_id", "name", "team", "role", "status", "checked_in_at")
+
+    def lookup(self, query: str = "") -> list[dict[str, str]]:
+        """Public name/ticket search. Excludes email, phone, notes and dietary."""
+        if not str(query).strip():
+            return []
+        rows = self.attendees(query=query)
+        return [
+            {field: row.get(field, "") for field in self.PUBLIC_FIELDS}
+            for row in rows[:20]
+        ]
+
     def stats(self) -> dict[str, Any]:
         rows = self.store.attendees()
         present = [row for row in rows if row.get("status") == STATUS_PRESENT]

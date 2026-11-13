@@ -18,7 +18,6 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "time": "18:30",
     "venue": "The Workshop — 4th floor",
     "rsvp_deadline": "2026-12-12",
-    "public_base_url": "",
     "prizes": [
         "Grand prize — noise-cancelling headphones",
         "Second prize — cosy blanket + hot chocolate kit",

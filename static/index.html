@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Christmas Thing</title>
+    <meta name="description" content="Register, scan in, and (maybe) win the lucky draw at The Christmas Thing." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="#/home">
+          <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z" fill="currentColor" opacity=".9" />
+            <circle cx="12" cy="12" r="1.6" fill="#0a1511" />
+          </svg>
+          <span class="brand-text">
+            <strong data-event="name">The Christmas Thing</strong>
+            <em data-event="date">19 December 2026</em>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="#/home" data-nav="home">Home</a>
+          <a href="#/register" data-nav="register">Register</a>
+          <a href="#/ticket" data-nav="ticket">Ticket</a>
+          <a href="#/scan" data-nav="scan">Scan desk</a>
+          <a href="#/draw" data-nav="draw">Lucky draw</a>
+          <a href="#/guides" data-nav="guides">Guides</a>
+          <a href="#/admin" data-nav="admin">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell page">
+      <!-- ================================================================ home -->
+      <section class="view" id="view-home" data-view="home">
+        <div class="hero">
+          <div>
+            <p class="eyebrow"><span data-event="weekday">Saturday</span> · doors at <span data-event="time">18:30</span> · one very good draw</p>
+            <h1 class="hero-title">
+              The Christmas Thing
+              <span>you're on the list, aren't you?</span>
+            </h1>
+            <p class="hero-lede">
+              Register once, get a QR ticket, and walk in without a clipboard in sight. The guest
+              list is an Excel file you can open, edit, and print — the door, the kitchen, and the
+              lucky draw all read from the same sheet.
+            </p>
+            <div class="hero-meta">
+              <span class="chip"><span class="dot"></span><span data-event="date">19 December 2026</span></span>
+              <span class="chip"><span data-event="venue">The Workshop — 4th floor</span></span>
+              <span class="chip">Doors <span data-event="time">18:30</span></span>
+            </div>
+            <div class="hero-actions">
+              <a class="btn btn-lg" href="#/register">Register for the night</a>
+              <a class="btn btn-ghost btn-lg" href="#/ticket">I already have a ticket</a>
+            </div>
+          </div>
+
+          <aside class="plaque">
+            <p class="plaque-month" data-event="date-month">DECEMBER</p>
+            <p class="plaque-day" data-event="date-day">19</p>
+            <p class="plaque-venue">One roof. Too many cookies. <span data-event="venue">The Workshop — 4th floor</span></p>
+            <div class="plaque-time">
+              <span>Doors <span data-event="time">18:30</span></span>
+              <span>RSVP by <span data-event="deadline">12 December</span></span>
+            </div>
+          </aside>
+        </div>
+
+        <section class="stats" aria-label="Live event numbers">
+          <div class="stat">
+            <p class="stat-value" data-stat="registered">0</p>
+            <p class="stat-label">Registered</p>
+          </div>
+          <div class="stat">
+            <p class="stat-value" data-stat="checked_in">0</p>
+            <p class="stat-label">Checked in</p>
+          </div>
+          <div class="stat">
+            <p class="stat-value" data-stat="pending">0</p>
+            <p class="stat-label">Still to arrive</p>
+          </div>
+          <div class="stat">
+            <p class="stat-value" data-stat="prizes">0</p>
+            <p class="stat-label">Prizes drawn</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <p class="eyebrow">The whole site, five doors</p>
+            <h2 class="section-title">Pick where you're going</h2>
+          </div>
+          <div class="nav-grid">
+            <a class="nav-card" href="#/register">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <path d="M7 3h10a1 1 0 011 1v16a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" />
+                  <path d="M9 8h6M9 12h6M9 16h3" />
+                </svg>
+              </span>
+              <h3>Registration</h3>
+              <p>A form that feels like Microsoft Forms, except it writes straight into the guest list.</p>
+              <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+
+            <a class="nav-card" href="#/ticket">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <path d="M3 5h7v7H3zM14 5h7v7h-7zM3 14h7v7H3z" />
+                  <path d="M14 14h3v3h-3zM19 19h2v2h-2z" />
+                </svg>
+              </span>
+              <h3>My ticket</h3>
+              <p>Look up your QR code by name or ticket ID, then screenshot it for the door.</p>
+              <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+
+            <a class="nav-card" href="#/scan">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <path d="M4 8V5a1 1 0 011-1h3M20 8V5a1 1 0 00-1-1h-3M4 16v3a1 1 0 001 1h3M20 16v3a1 1 0 01-1 1h-3" />
+                  <path d="M12 8v8M8 12h8" />
+                </svg>
+              </span>
+              <h3>Scan desk</h3>
+              <p>The old-school door scanner. Point the laptop camera at a ticket, hear the chime, done.</p>
+              <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+
+            <a class="nav-card" href="#/draw">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <path d="M12 3l2 5.5L20 10l-4.5 4 1.2 6L12 17l-4.7 3 1.2-6L4 10l6-1.5L12 3z" />
+                </svg>
+              </span>
+              <h3>Lucky draw</h3>
+              <p>A reel, a drum roll, and a winner picked from the checked-in sheet. One win per person.</p>
+              <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+
+            <a class="nav-card" href="#/guides">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <path d="M4 5.5A2.5 2.5 0 016.5 3H20v15.5H6.5A2.5 2.5 0 004 21V5.5z" />
+                  <path d="M8 8h8M8 12h6" />
+                </svg>
+              </span>
+              <h3>Event guides</h3>
+              <p>Arrival, schedule, dietary notes, draw rules, and where the lost property lives.</p>
+              <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+
+            <a class="nav-card" href="#/admin">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <path d="M9 4h6a1 1 0 011 1v1H8V5a1 1 0 011-1z" />
+                  <path d="M6 6h12a1 1 0 011 1v13a1 1 0 01-1 1H6a1 1 0 01-1-1V7a1 1 0 011-1z" />
+                  <path d="M9 11h6M9 15h4" />
+                </svg>
+              </span>
+              <h3>Admin</h3>
+              <p>The guest list, live stats, manual check-in fixes, and the Excel import/export.</p>
+              <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          </div>
+        </section>
+
+        <div class="divider-star" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z"/></svg>
+        </div>
+
+        <section class="section">
+          <div class="section-head">
+            <p class="eyebrow">How the night flows</p>
+            <h2 class="section-title">Four steps, no clipboard</h2>
+          </div>
+          <div class="steps">
+            <article class="step">
+              <h4>Sign up</h4>
+              <p>Fill in the registration form. A row appears in the guest list instantly, and you get a ticket code.</p>
+            </article>
+            <article class="step">
+              <h4>Get your QR</h4>
+              <p>Your ticket page renders a QR code. Screenshot it, add it to your wallet, or keep the tab open.</p>
+            </article>
+            <article class="step">
+              <h4>Scan at the door</h4>
+              <p>The desk scans you in. Status flips to <em>Checked in</em>, the timestamp fills itself, the chime plays.</p>
+            </article>
+            <article class="step">
+              <h4>Win something</h4>
+              <p>At 21:30 the draw reads the checked-in names, picks one at random, and logs it on the Winners sheet.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="card card-dark">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow">Under the hood</p>
+                <h2 class="card-title">One Excel file is the whole database</h2>
+                <p class="card-sub">
+                  This build runs entirely in the browser: the guest list lives in this browser's
+                  storage and becomes a real <code>attendees.xlsx</code> whenever you download it.
+                  Open it in Excel, fix a typo, add a column, then import it back — no server, no
+                  accounts, no monthly bill.
+                </p>
+              </div>
+            </div>
+            <hr class="rule" />
+            <div class="row" style="margin-top: 18px">
+              <button class="btn btn-gold" type="button" data-export-xlsx>Download the sheet</button>
+              <a class="btn btn-ghost" href="#/admin">Open admin</a>
+              <span class="tiny">Admin password required · Tabs: Attendees · Winners · Read me</span>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ============================================================ register -->
+      <section class="view" id="view-register" data-view="register">
+        <div class="page-head">
+          <p class="eyebrow">Registration</p>
+          <h1>Put your name on the list</h1>
+          <p class="muted">
+            Two required fields, everything else optional. The moment you submit, a row lands in the
+            guest list and a QR ticket is minted for you.
+          </p>
+        </div>
+
+        <div class="split">
+          <section class="card" id="form-card">
+            <form id="register-form" novalidate>
+              <div class="form-grid">
+                <div class="field field-full">
+                  <label for="name">Your name <span class="hint">— required</span></label>
+                  <input class="input" id="name" name="name" type="text" autocomplete="name" placeholder="Ada Lovelace" maxlength="80" required />
+                </div>
+
+                <div class="field">
+                  <label for="email">Email <span class="hint">— used to find your ticket again</span></label>
+                  <input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="ada@example.com" maxlength="120" />
+                </div>
+
+                <div class="field">
+                  <label for="phone">Phone <span class="hint">— optional</span></label>
+                  <input class="input" id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+44 7700 900123" maxlength="40" />
+                </div>
+
+                <div class="field">
+                  <label for="team">Team / organisation</label>
+                  <input class="input" id="team" name="team" type="text" placeholder="Engine Room" maxlength="80" />
+                </div>
+
+                <div class="field">
+                  <label for="role">You are a…</label>
+                  <select class="select" id="role" name="role">
+                    <option>Guest</option>
+                    <option>Plus one</option>
+                    <option>Volunteer</option>
+                    <option>Organiser</option>
+                    <option>Performer</option>
+                  </select>
+                </div>
+
+                <div class="field field-full">
+                  <label for="dietary">Dietary needs <span class="hint">— the kitchen prints this list</span></label>
+                  <input class="input" id="dietary" name="dietary" type="text" placeholder="Vegan, nut allergy, no mushrooms…" maxlength="120" />
+                </div>
+
+                <div class="field field-full">
+                  <label for="notes">Anything else? <span class="hint">— optional</span></label>
+                  <textarea class="textarea" id="notes" name="notes" placeholder="Arriving late, bringing a plus one, need step-free access…" maxlength="500"></textarea>
+                </div>
+              </div>
+
+              <div id="form-error" class="form-error hidden" role="alert"></div>
+
+              <div class="form-foot">
+                <p class="form-note">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                    <rect x="4" y="10" width="16" height="10" rx="2" />
+                    <path d="M8 10V7a4 4 0 118 0v3" />
+                  </svg>
+                  <span>Your details stay in this browser. Export the Excel file any time; nothing is uploaded anywhere.</span>
+                </p>
+                <button class="btn btn-lg" id="submit-btn" type="submit">Create my ticket</button>
+              </div>
+            </form>
+          </section>
+
+          <aside class="stack">
+            <div class="card card-dark side-note">
+              <p class="eyebrow">Already signed up?</p>
+              <h3 class="card-title">Don't make a second row</h3>
+              <p class="card-sub">
+                If you use the same email, the app finds your existing ticket instead of adding you
+                twice. You can also look yourself up by name or ticket ID.
+              </p>
+              <a class="btn btn-ghost btn-sm" href="#/ticket" style="margin-top: 14px">Find my ticket</a>
+            </div>
+
+            <div class="card card-dark side-note">
+              <p class="eyebrow">On the night</p>
+              <ol class="mini-steps">
+                <li>Show the QR at the door — it scans in a second.</li>
+                <li>Keep the tab open if you can; the code is your entry into the draw.</li>
+                <li>Checked in before 21:30 means you're in the lucky draw.</li>
+              </ol>
+            </div>
+
+            <p class="tiny" id="people-count"></p>
+          </aside>
+        </div>
+
+        <section class="card success-card hidden" id="success-card">
+          <div class="success-head">
+            <p class="eyebrow" id="success-eyebrow">You're in</p>
+            <h2 class="card-title" id="success-title">Welcome to the list</h2>
+            <p class="card-sub" id="success-sub"></p>
+          </div>
+
+          <div class="ticket-wrap">
+            <div class="ticket" id="success-ticket">
+              <div class="ticket-top">
+                <div class="ticket-event">
+                  <span data-event="name">The Christmas Thing</span>
+                  <small><span data-event="date">19 December 2026</span> · <span data-event="time">18:30</span></small>
+                </div>
+                <span class="ticket-admit">Admit one</span>
+              </div>
+              <div class="ticket-perf"></div>
+              <div class="ticket-qr">
+                <div class="ticket-qr-box" id="success-qr"></div>
+              </div>
+              <div class="ticket-name" id="success-name">—</div>
+              <div class="ticket-sub" id="success-team"></div>
+              <div class="ticket-code">
+                <span id="success-code">—</span>
+              </div>
+              <div class="ticket-foot">
+                <span><span data-event="venue">The Workshop</span></span>
+                <span class="ticket-status">Registered</span>
+              </div>
+            </div>
+
+            <div class="ticket-actions">
+              <a class="btn" id="open-ticket" href="#/ticket">Open full ticket</a>
+              <button class="btn btn-ghost" id="copy-ticket" type="button">Copy ticket link</button>
+              <button class="btn btn-ghost" id="register-another" type="button">Register someone else</button>
+            </div>
+            <p class="tiny center">Screenshot the QR, or open the full ticket page. Both scan the same.</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- ============================================================== ticket -->
+      <section class="view" id="view-ticket" data-view="ticket">
+        <div class="page-head">
+          <p class="eyebrow">My ticket</p>
+          <h1>Find your QR code</h1>
+          <p class="muted">
+            Type the ticket ID from your confirmation (it looks like <code>CT-4KQ2-9WMB</code>), or
+            search your name. Then screenshot it — that's your way in.
+          </p>
+        </div>
+
+        <div class="lookup">
+          <form class="lookup-form" id="lookup-form">
+            <input
+              class="input"
+              id="lookup-input"
+              name="query"
+              type="text"
+              placeholder="CT-XXXX-XXXX or your name"
+              aria-label="Ticket code or name"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button class="btn" id="lookup-btn" type="submit">Find ticket</button>
+          </form>
+          <p class="tiny" id="lookup-hint">Codes are printed under the QR on your ticket page.</p>
+        </div>
+
+        <div id="lookup-error" class="form-error hidden" role="alert" style="max-width: 620px; margin: 18px auto 0"></div>
+
+        <section id="results" class="hidden" style="max-width: 620px; margin: 24px auto 0">
+          <p class="eyebrow" style="margin-bottom: 12px">Matches</p>
+          <div class="stack-sm" id="result-list"></div>
+        </section>
+
+        <section id="ticket-view" class="hidden">
+          <div class="ticket-wrap">
+            <div class="ticket" id="ticket">
+              <div class="ticket-top">
+                <div class="ticket-event">
+                  <span data-event="name">The Christmas Thing</span>
+                  <small><span data-event="date">19 December 2026</span> · <span data-event="time">18:30</span></small>
+                </div>
+                <span class="ticket-admit">Admit one</span>
+              </div>
+              <div class="ticket-perf"></div>
+              <div class="ticket-qr">
+                <div class="ticket-qr-box" id="ticket-qr"></div>
+              </div>
+              <div class="ticket-name" id="ticket-name">—</div>
+              <div class="ticket-sub" id="ticket-team"></div>
+              <div class="ticket-code">
+                <span id="ticket-code-text">—</span>
+                <button class="btn btn-quiet btn-sm no-print" id="copy-code" type="button" aria-label="Copy ticket code">Copy</button>
+              </div>
+              <div class="ticket-foot">
+                <span><span data-event="venue">The Workshop</span></span>
+                <span class="ticket-status" id="ticket-status">Registered</span>
+              </div>
+            </div>
+
+            <div class="ticket-actions no-print">
+              <button class="btn" id="print-ticket" type="button">Print ticket</button>
+              <button class="btn btn-ghost" id="copy-link" type="button">Copy ticket link</button>
+              <a class="btn btn-ghost" href="#/scan">I'm at the door</a>
+            </div>
+            <p class="tiny center no-print" id="ticket-footnote"></p>
+          </div>
+        </section>
+      </section>
+
+      <!-- ================================================================ scan -->
+      <section class="view" id="view-scan" data-view="scan">
+        <div class="page-head">
+          <p class="eyebrow">Scan desk · door duty</p>
+          <h1>Scan them in</h1>
+          <p class="muted">
+            Point the camera at the QR on someone's ticket. The moment it reads, their row flips to
+            <em>Checked in</em>. If the camera is being shy, type the code.
+          </p>
+        </div>
+
+        <div class="scan-layout">
+          <section class="card card-dark">
+            <div class="scan-stage" id="scan-stage">
+              <video id="scan-video" playsinline muted></video>
+              <canvas id="scan-canvas" hidden></canvas>
+              <div class="scan-idle" id="scan-idle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                  <path d="M4 8V5a1 1 0 011-1h3M20 8V5a1 1 0 00-1-1h-3M4 16v3a1 1 0 001 1h3M20 16v3a1 1 0 01-1 1h-3" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <p>Camera is off</p>
+                <button class="btn btn-gold" id="start-camera" type="button">Start camera</button>
+                <p class="tiny" id="camera-hint">Your browser will ask for permission. Nothing is recorded or uploaded.</p>
+              </div>
+              <div class="scan-frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+              <div class="scan-line" aria-hidden="true"></div>
+              <div class="scan-flash" id="scan-flash" aria-hidden="true"></div>
+            </div>
+
+            <div class="row" style="margin-top: 16px; justify-content: space-between">
+              <span class="chip"><span class="dot"></span><span id="cam-state">Camera off</span></span>
+              <div class="row">
+                <label class="tiny toggle">
+                  <input type="checkbox" id="sound-toggle" checked />
+                  <span>Sound</span>
+                </label>
+                <button class="btn btn-ghost btn-sm" id="stop-camera" type="button" disabled>Stop camera</button>
+              </div>
+            </div>
+          </section>
+
+          <aside class="stack">
+            <div class="card card-dark">
+              <div class="scan-result" id="scan-result">
+                <span class="eyebrow">Ready</span>
+                <p class="name">Waiting for a ticket</p>
+                <p class="meta">Scan a QR code, or type the ticket ID below.</p>
+              </div>
+
+              <form class="manual-entry" id="manual-form" style="margin-top: 14px">
+                <input class="input" id="manual-code" type="text" placeholder="CT-XXXX-XXXX" aria-label="Ticket ID" autocomplete="off" spellcheck="false" />
+                <button class="btn" id="manual-btn" type="submit">Check in</button>
+              </form>
+              <p class="tiny" id="manual-hint" style="margin-top: 8px">Codes are not case sensitive.</p>
+
+              <hr class="rule" style="margin: 18px 0" />
+
+              <div class="spread" style="margin-bottom: 6px">
+                <span class="eyebrow">Recent check-ins</span>
+                <span class="tiny" id="scan-counter">0 of 0</span>
+              </div>
+              <ul class="log" id="scan-log">
+                <li><span class="who">No one yet tonight</span><span class="when">—</span></li>
+              </ul>
+
+              <a class="btn btn-ghost btn-sm" href="#/admin" style="margin-top: 16px">Fix a mistake in admin</a>
+            </div>
+
+            <div class="card card-dark">
+              <p class="eyebrow" style="margin-bottom: 10px">Door stats</p>
+              <div class="door-stats">
+                <div>
+                  <p class="stat-value" data-stat="checked_in">0</p>
+                  <p class="stat-label">Checked in</p>
+                </div>
+                <div>
+                  <p class="stat-value" data-stat="registered">0</p>
+                  <p class="stat-label">Registered</p>
+                </div>
+                <div>
+                  <p class="stat-value" data-stat="pending">0</p>
+                  <p class="stat-label">Still out</p>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ================================================================ draw -->
+      <section class="view" id="view-draw" data-view="draw">
+        <div class="page-head">
+          <p class="eyebrow">Lucky draw</p>
+          <h1>One name, out of the sheet</h1>
+          <p class="muted">
+            The draw reads the same guest list the door uses. Only checked-in guests are eligible,
+            and nobody wins twice. Turn the laptop towards the room and press the button.
+          </p>
+        </div>
+
+        <div class="draw-layout">
+          <section class="stack">
+            <div class="reel-card">
+              <p class="reel-label" id="reel-prize">Grand prize</p>
+              <p class="reel" id="reel">—</p>
+              <p class="reel-sub" id="reel-sub">Waiting for the room to quiet down.</p>
+              <div class="row center" style="justify-content: center">
+                <button class="btn btn-lg btn-gold" id="draw-btn" type="button">Draw a winner</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="prize-select">Prize</label>
+                  <select class="select" id="prize-select"></select>
+                </div>
+                <div class="field">
+                  <label for="prize-custom">Or a custom prize</label>
+                  <input class="input" id="prize-custom" type="text" placeholder="Optional — overrides the list" maxlength="120" />
+                </div>
+                <div class="field">
+                  <label for="eligible-select">Who can win</label>
+                  <select class="select" id="eligible-select">
+                    <option value="checked_in">Checked-in guests only</option>
+                    <option value="registered">Everyone registered</option>
+                  </select>
+                </div>
+                <div class="field" style="align-content: end">
+                  <label class="checkline" for="allow-repeat">
+                    <input type="checkbox" id="allow-repeat" />
+                    <span>Allow previous winners to win again</span>
+                  </label>
+                </div>
+              </div>
+              <p class="tiny" id="pool-note" style="margin-top: 14px">Loading the guest list…</p>
+            </div>
+          </section>
+
+          <aside class="card">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow" style="color: var(--gold-deep)">On record</p>
+                <h2 class="card-title">Tonight's winners</h2>
+                <p class="card-sub">Also written to the Winners sheet in Excel.</p>
+              </div>
+            </div>
+            <div class="draw-history" id="draw-history">
+              <p class="tiny" style="color: var(--ink-mute)">No prizes drawn yet.</p>
+            </div>
+            <hr class="rule" style="margin: 18px 0" />
+            <div class="spread">
+              <div>
+                <p class="stat-value" style="color: var(--ink)" data-stat="prizes">0</p>
+                <p class="stat-label" style="color: var(--ink-mute)">Prizes drawn</p>
+              </div>
+              <a class="btn btn-quiet btn-sm" href="#/scan">Back to the door</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============================================================== guides -->
+      <section class="view" id="view-guides" data-view="guides">
+        <div class="page-head">
+          <p class="eyebrow">Event guides</p>
+          <h1>The things worth knowing</h1>
+          <p class="muted">
+            Everything a guest might ask at the door, and a couple of things they won't think to ask
+            until it's 21:29 and the draw is about to start.
+          </p>
+        </div>
+
+        <div class="guides-layout">
+          <aside class="toc" id="toc" aria-label="Guide contents"></aside>
+          <div id="guides">
+            <p class="loading"><span class="spinner"></span> Loading the guides…</p>
+          </div>
+        </div>
+
+        <div class="divider-star" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 5.6L20 9l-4.4 3.9 1.2 6.1L12 16l-4.8 3 1.2-6.1L4 9l5.8-1.4L12 2z"/></svg>
+        </div>
+
+        <div class="card card-dark">
+          <div class="spread">
+            <div>
+              <p class="eyebrow">Still stuck?</p>
+              <h2 class="card-title">Ask a human in a green lanyard</h2>
+              <p class="card-sub">Or shout at the desk by the entrance. They have the ingredient sheet.</p>
+            </div>
+            <div class="btn-row">
+              <a class="btn btn-gold" href="#/ticket">Find my ticket</a>
+              <a class="btn btn-ghost" href="#/register">Register</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== admin -->
+      <section class="view" id="view-admin" data-view="admin">
+        <div class="admin-lock" id="admin-lock">
+          <div class="card lock-card">
+            <span class="lock-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <rect x="4" y="10" width="16" height="10" rx="2" />
+                <path d="M8 10V7a4 4 0 118 0v3" />
+                <path d="M12 14v2" />
+              </svg>
+            </span>
+            <p class="eyebrow">Admin · locked</p>
+            <h1 class="lock-title">The desk panel</h1>
+            <p class="card-sub">
+              The guest list, check-in fixes and the Excel export are behind the admin password.
+            </p>
+            <form id="admin-login-form" novalidate>
+              <div class="field">
+                <label for="admin-password">Password</label>
+                <input
+                  class="input"
+                  id="admin-password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="Enter admin password"
+                  required
+                />
+              </div>
+              <p class="form-error hidden" id="admin-login-error" role="alert"></p>
+              <button class="btn btn-lg btn-block" id="admin-login-btn" type="submit">Unlock admin</button>
+            </form>
+            <p class="tiny lock-hint">
+              Session lasts 12 hours. Ask the event lead for the password. Don't reuse a real account
+              password here — this is a screen lock for the desk, not server-grade security.
+            </p>
+          </div>
+        </div>
+
+        <div id="admin-shell" class="hidden">
+          <div class="page-head">
+            <div class="spread">
+              <div>
+                <p class="eyebrow">Admin · behind the desk</p>
+                <h1>The guest list</h1>
+                <p class="muted">
+                  Live view of the database. Fix a missed scan, search for a name, or export the Excel
+                  file at the end of the night.
+                </p>
+              </div>
+              <button class="btn btn-ghost btn-sm" id="lock-admin" type="button">Lock admin</button>
+            </div>
+          </div>
+
+        <section class="admin-stats" aria-label="Event totals">
+          <div class="stat">
+            <p class="stat-value" data-stat="registered">0</p>
+            <p class="stat-label">Registered</p>
+          </div>
+          <div class="stat">
+            <p class="stat-value" data-stat="checked_in">0</p>
+            <p class="stat-label">Checked in</p>
+          </div>
+          <div class="stat">
+            <p class="stat-value" data-stat="pending">0</p>
+            <p class="stat-label">Still to arrive</p>
+          </div>
+          <div class="stat">
+            <p class="stat-value" data-stat="prizes">0</p>
+            <p class="stat-label">Prizes drawn</p>
+          </div>
+        </section>
+
+        <div class="admin-note" style="margin-bottom: 20px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 8v5M12 16h.01" />
+          </svg>
+          <span>
+            This is the static build: the guest list lives in this browser's storage. Import an
+            Excel file to bring guests in, download one to back up or hand to the kitchen. Export
+            before closing the laptop.
+          </span>
+        </div>
+
+        <section class="card" style="margin-bottom: 24px">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow" style="color: var(--gold-deep)">Data</p>
+              <h2 class="card-title" style="font-size: 1.25rem">Excel in, Excel out</h2>
+              <p class="card-sub">Import names from a spreadsheet, or download the current list.</p>
+            </div>
+          </div>
+          <div class="file-row">
+            <label class="btn btn-sm" for="import-file">Import Excel / CSV</label>
+            <input class="visually-hidden" id="import-file" type="file" accept=".xlsx,.xlsm,.csv" />
+            <button class="btn btn-quiet btn-sm" type="button" data-export-xlsx>Download Excel</button>
+            <button class="btn btn-quiet btn-sm" id="seed-demo" type="button">Load demo guests</button>
+            <button class="btn btn-quiet btn-sm" id="clear-data" type="button" style="border-color: rgba(178, 58, 54, 0.4); color: var(--crimson)">Clear all data</button>
+          </div>
+          <p class="tiny" id="storage-note" style="margin-top: 14px; color: var(--ink-mute)"></p>
+        </section>
+
+        <section class="card">
+          <div class="toolbar">
+            <input class="input search" id="search" type="search" placeholder="Search name, email, ticket, team…" autocomplete="off" />
+            <select class="select" id="status-filter" aria-label="Filter by status">
+              <option value="all">Everyone</option>
+              <option value="present">Checked in</option>
+              <option value="pending">Still to arrive</option>
+            </select>
+            <button class="btn btn-quiet btn-sm" id="refresh" type="button">Refresh</button>
+            <button class="btn btn-sm" type="button" data-export-xlsx>Download Excel</button>
+          </div>
+
+          <div id="admin-error" class="form-error hidden" role="alert" style="margin-bottom: 14px"></div>
+
+          <div class="table-wrap">
+            <table class="data">
+              <thead>
+                <tr>
+                  <th>Guest</th>
+                  <th>Ticket</th>
+                  <th>Team</th>
+                  <th>Registered</th>
+                  <th>Status</th>
+                  <th>Checked in</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="attendee-rows">
+                <tr class="empty-row">
+                  <td colspan="7"><span class="loading"><span class="spinner"></span> Loading the guest list…</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="spread" style="margin-top: 16px">
+            <p class="tiny" id="table-count" style="color: var(--ink-mute)"></p>
+            <p class="tiny" style="color: var(--ink-mute)">Updates instantly when you change something.</p>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top: 24px">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow" style="color: var(--gold-deep)">Danger zone</p>
+              <h2 class="card-title" style="font-size: 1.2rem">Start the draw over</h2>
+              <p class="card-sub">Clears the Winners sheet. Registration and check-ins are untouched.</p>
+            </div>
+            <button class="btn btn-quiet btn-sm" id="reset-draw" type="button" style="border-color: rgba(178, 58, 54, 0.4); color: var(--crimson)">
+              Reset winners
+            </button>
+          </div>
+        </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <span>Made for one night in December · <span data-event="year">2026</span> · static build</span>
+        <span><a href="#/guides">Guides</a> · <a href="#/scan">Scan desk</a> · <a href="#/admin">Admin</a></span>
+      </div>
+    </footer>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+    <script src="js/vendor/qrcode.min.js"></script>
+    <script src="js/vendor/jsQR.js"></script>
+    <script src="js/vendor/xlsx.full.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/register.js"></script>
+    <script src="js/ticket.js"></script>
+    <script src="js/scan.js"></script>
+    <script src="js/draw.js"></script>
+    <script src="js/guides.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>

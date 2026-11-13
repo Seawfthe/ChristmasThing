@@ -1,6 +1,15 @@
+# Python
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+compileall
+
+# OS / editors
 .DS_Store
-# The live database is generated at runtime — don't commit guests' details.
-data/attendees.xlsx
+.vscode/
+.idea/
+*.log
+
+# The live database is generated at runtime — never commit guests' details.
+*.xlsx
